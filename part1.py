@@ -9,6 +9,7 @@ def display_title_bar():
     print("\n")
     print("\t[1] Add modular numbers.")
     print("\t[2] Multiply modular numbers.")
+    print("\t[3] Modular inverse.")
     print("\t[q] Quit.")
 
 
@@ -34,6 +35,14 @@ def multiply_numbers():
     press_any_key()
 
 
+def modular_inverse():
+    p = int(input("\n\tSpecify the base: "))
+    a = int(input("\tEnter number 1: "))
+    result = Modular(a, p).modular_inverse()
+    print("\n\tResult: ({0} ^ -1) mod {1} = {2}".format(a, p, result.value))
+    press_any_key()
+
+
 def quit_message():
     display_title_bar()
     print("\n\tTill next time")
@@ -42,6 +51,7 @@ def quit_message():
 programs = {
     '1': add_numbers,
     '2': multiply_numbers,
+    '3': modular_inverse,
     'q': quit_message
 }
 

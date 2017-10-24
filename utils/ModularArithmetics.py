@@ -57,7 +57,7 @@ class ModularArithmetics(object):
         """
         x0, x1, y0, y1 = 1, 0, 0, 1
         while y != 0:
-            (q, x, y) = (x // y, y, x % y) #// is integer division
+            (q, x, y) = (x // y, y, x % y)  # // is integer division
             (x0, x1) = (x1, x0 - q * x1)
             (y0, y1) = (y1, y0 - q * y1)
         return x, x0, y0

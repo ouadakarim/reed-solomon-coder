@@ -25,3 +25,7 @@ class Modular:
         else:
             val = ModularArithmetics.multiply(self.value, other, self.modulus)
             return Modular(val, self.modulus)
+
+    def modular_inverse(self):
+        val = ModularArithmetics.modular_inverse(self.value, self.modulus)
+        return Modular(val, self.modulus)
