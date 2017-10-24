@@ -31,6 +31,7 @@ class ModularArithmetics(object):
     def gcd(x, y):
         """
         This method calculates the greatest common divisor of two numbers
+        Euclidean Algorythm
 
         :param x: first number
         :param y: second number
@@ -41,13 +42,40 @@ class ModularArithmetics(object):
         return x
 
     @staticmethod
-    def modular_inverse(x, y, p):
+    def extended_gcd(x, y):
+        """
+        This method calculates the greatest common divisor of two numbers
+        Extended Euclidean Algorythm
+
+        The result is following: ax + by = 1
+
+        :param x: first number
+        :param y: second number
+        :return x: Greatest common divisor
+        :return x0: Coefficient of x (a)
+        :return y0: Coefficient of y (b)
+        """
+        x0, x1, y0, y1 = 1, 0, 0, 1
+        while y != 0:
+            (q, x, y) = (x // y, y, x % y) #// is integer division
+            (x0, x1) = (x1, x0 - q * x1)
+            (y0, y1) = (y1, y0 - q * y1)
+        return x, x0, y0
+
+    @staticmethod
+    def modular_inverse(x, p):
         """
         This method calculates the greatest common divisor of two numbers
 
         :param x: first number
-        :param y: second number
+        :param p: modular base
         :return: Modular Inverse
         """
+        g, a, _ = ModularArithmetics.extended_gcd(x, p)
+        if g == 1:
+            return a % p
+        else:
+            print("Modular inverse does not exist for {0} mod {1}".format(x, p))
+            return None
 
 
