@@ -78,4 +78,28 @@ class ModularArithmetics(object):
             print("Modular inverse does not exist for {0} mod {1}".format(x, p))
             return None
 
+    @staticmethod
+    def find_primitives(p):
+        """
+        This method gets the primitives for a certain modulus
+
+        :param p: modular base
+        :return: primitives
+        """
+        primitives = []
+        for i in range(1, p):
+            for j in range(1, p):
+                val = pow(i, j) % p
+                if val == 1:
+                    if j != p - 1:
+                        break
+                    else:
+                        primitives.append(i)
+        return primitives
+
+
+
+
+
+
 

@@ -1,6 +1,7 @@
 import os
 
 from utils.Modular import Modular
+from utils.ModularArithmetics import ModularArithmetics
 
 
 def display_title_bar():
@@ -10,6 +11,7 @@ def display_title_bar():
     print("\t[1] Add modular numbers.")
     print("\t[2] Multiply modular numbers.")
     print("\t[3] Modular inverse.")
+    print("\t[4] Primitives.")
     print("\t[q] Quit.")
 
 
@@ -43,15 +45,24 @@ def modular_inverse():
     press_any_key()
 
 
+def primitives():
+    p = int(input("\n\tSpecify the base: "))
+    result = ModularArithmetics.find_primitives(p)
+    print("\n\tResult:")
+    print("\t", result)
+    press_any_key()
+
+
 def quit_message():
     display_title_bar()
-    print("\n\tTill next time")
+    print("\n\tTill next time! Bye!")
     press_any_key()
 
 programs = {
     '1': add_numbers,
     '2': multiply_numbers,
     '3': modular_inverse,
+    '4': primitives,
     'q': quit_message
 }
 
