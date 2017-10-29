@@ -29,3 +29,9 @@ class Modular:
     def modular_inverse(self):
         val = ModularArithmetics.modular_inverse(self.value, self.modulus)
         return Modular(val, self.modulus)
+
+    def __unicode__(self):
+        return '{0} mod {1}'.format(self.value, self.modulus)
+
+    def __str__(self):
+        return '{0} mod {1}'.format(self.value, self.modulus)

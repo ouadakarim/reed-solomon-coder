@@ -1,5 +1,9 @@
 import math
 
+import sys
+
+import itertools
+
 
 class ModularArithmetics(object):
 
@@ -96,6 +100,33 @@ class ModularArithmetics(object):
                     else:
                         primitives.append(i)
         return primitives
+
+    @staticmethod
+    def chinese_remainder_theorem(y, n):
+        """
+        This method gets the number that satisfies the theorem
+
+        :param y: Array of any integer numbers
+        :param n: Array of pairwise coprime integers
+        :return: Number satysfying the theorem
+        """
+        def calc_next_iteration(base, number_of_items, iterator):
+            prod = 1
+            for a in range(number_of_items):
+                prod *= n[a]
+            return base + prod * iterator
+
+        if len(y) != len(n) | len(y) == 0 | len(n) == 0:
+            print("Incorrect number of parameters")
+            return None
+        val = y[0]
+        for i in range(len(y) - 1):
+            for j in itertools.count():
+                x = calc_next_iteration(val, i + 1, j)
+                if x % n[i+1] == y[i+1]:
+                    val = x
+                    break
+        return val
 
 
 
