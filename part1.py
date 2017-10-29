@@ -12,6 +12,7 @@ def display_title_bar():
     print("\t[2] Multiply modular numbers.")
     print("\t[3] Modular inverse.")
     print("\t[4] Primitives.")
+    print("\t[5] Chinese remainder theorem.")
     print("\t[q] Quit.")
 
 
@@ -53,6 +54,15 @@ def primitives():
     press_any_key()
 
 
+def chinese_remainder_theorem():
+    y = [int(x) for x in input("\n\tSpecify the sequence of integers:").split()]
+    n = [int(x) for x in input("\n\tSpecify positive integers that are pairwise co-prime:").split()]
+    result = ModularArithmetics.chinese_remainder_theorem(y, n)
+    print("\n\tResult:")
+    print("\t", result)
+    press_any_key()
+
+
 def quit_message():
     display_title_bar()
     print("\n\tTill next time! Bye!")
@@ -63,6 +73,7 @@ programs = {
     '2': multiply_numbers,
     '3': modular_inverse,
     '4': primitives,
+    '5': chinese_remainder_theorem,
     'q': quit_message
 }
 

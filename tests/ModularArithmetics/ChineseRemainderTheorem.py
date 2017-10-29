@@ -16,6 +16,9 @@ class ChineseRemainderTheorem(unittest.TestCase):
     def test2_chinese_remainder_theorem(self):
         self.assertEqual(ModularArithmetics.chinese_remainder_theorem([2, 3, 2], [3, 5, 7]), 23)
 
+    def test3_chinese_remainder_theorem(self):
+        self.assertEqual(ModularArithmetics.chinese_remainder_theorem([2, 3], [3, 5, 7]), None)
+
 
 if __name__ == '__main__':
     unittest.main()

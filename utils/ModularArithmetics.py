@@ -116,7 +116,7 @@ class ModularArithmetics(object):
                 prod *= n[a]
             return base + prod * iterator
 
-        if len(y) != len(n) | len(y) == 0 | len(n) == 0:
+        if len(y) != len(n) or len(y) == 0 or len(n) == 0:
             print("Incorrect number of parameters")
             return None
         val = y[0]
