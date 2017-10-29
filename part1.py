@@ -16,7 +16,7 @@ def display_title_bar():
 
 
 def press_any_key():
-    input("\tPress any key to continue...")
+    input("\n\tPress any key to continue...")
 
 
 def add_numbers():
@@ -47,7 +47,7 @@ def modular_inverse():
 
 def primitives():
     p = int(input("\n\tSpecify the base: "))
-    result = ModularArithmetics.find_primitives(p)
+    result = ModularArithmetics.primitives(p)
     print("\n\tResult:")
     print("\t", result)
     press_any_key()

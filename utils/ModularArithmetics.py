@@ -79,7 +79,7 @@ class ModularArithmetics(object):
             return None
 
     @staticmethod
-    def find_primitives(p):
+    def primitives(p):
         """
         This method gets the primitives for a certain modulus
 

@@ -11,19 +11,19 @@ class Primitives(unittest.TestCase):
         pass
 
     def test1_primitives_of_11(self):
-        self.assertEqual(ModularArithmetics.find_primitives(11), [2, 6, 7, 8])
+        self.assertEqual(ModularArithmetics.primitives(11), [2, 6, 7, 8])
 
     def test2_primitives_of_17(self):
-        self.assertEqual(ModularArithmetics.find_primitives(17), [
+        self.assertEqual(ModularArithmetics.primitives(17), [
             3, 5, 6, 7, 10, 11, 12, 14])
 
     def test3_primitives_of_71(self):
-        self.assertEqual(ModularArithmetics.find_primitives(71), [
+        self.assertEqual(ModularArithmetics.primitives(71), [
             7, 11, 13, 21, 22, 28, 31, 33, 35, 42, 44, 47, 52, 53, 55, 56, 59,
             61, 62, 63, 65, 67, 68, 69])
 
     def test4_primitives_of_1021(self):
-        self.assertEqual(ModularArithmetics.find_primitives(1021), [
+        self.assertEqual(ModularArithmetics.primitives(1021), [
             10, 22, 30, 31, 34, 35, 37, 40, 43, 46, 50, 53, 59, 65, 66, 76, 77,
             82, 90, 93, 94, 95, 102, 103, 105, 109, 111, 119, 120, 122, 124,
             127, 129, 134, 137, 138, 140, 143, 150, 159, 160, 161, 166, 172,
