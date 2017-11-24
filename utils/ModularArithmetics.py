@@ -1,7 +1,5 @@
 import math
-
 import sys
-
 import itertools
 
 
@@ -83,7 +81,67 @@ class ModularArithmetics(object):
             return None
 
     @staticmethod
+    def primitives_for_loop(p):
+        """
+        This method gets the primitives for a certain modulus
+
+        :param p: modular base
+        :return: primitives
+        """
+        #TODO: Przepisać w wersje na kolokwium tj. poszukać po liczbach względnie pierwszych do p - 1
+        primitives = []
+        for i in range(1, p):
+            for j in range(1, p):
+                val = pow(i, j) % p
+                if val == 1:
+                    if j != p - 1:
+                        break
+                    else:
+                        primitives.append(i)
+        return primitives
+
+    @staticmethod
+    def coprime(x, y):
+        """
+        Check if two numbers are coprimes
+
+        :param x: number 1
+        :param y: number 2
+        :return: Boolean is_coprime
+        """
+        return math.gcd(x, y) == 1
+
+    @staticmethod
     def primitives(p):
+        """
+        This method gets the primitives for a certain modulus
+
+        :param p: modular base
+        :return: primitives
+        """
+        primitives = []
+        values = {}
+        i = 0
+        while len(primitives) == 0 and i < p:
+            i += 1
+            for j in range(1, p):
+                val = pow(i, j) % p
+                values[j] = val
+                if val == 1:
+                    if j != p - 1:
+                        break
+                    else:
+                        primitives.append(i)
+                        break
+        primitives.clear()
+        for key in values:
+            if ModularArithmetics.coprime(p-1, key):
+                primitives.append(values[key])
+
+        return sorted(primitives)
+
+    @staticmethod
+    def primitives2(p):
         """
         This method gets the primitives for a certain modulus
 
@@ -105,6 +163,11 @@ class ModularArithmetics(object):
     def chinese_remainder_theorem(y, n):
         """
         This method gets the number that satisfies the theorem
+        The theorem says that for each y and n:
+        x = y1 (mod n1)
+        x = y2 (mod n2)
+        ...
+        Where x is one number that satisfies the theorem
 
         :param y: Array of any integer numbers
         :param n: Array of pairwise coprime integers
