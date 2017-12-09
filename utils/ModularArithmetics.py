@@ -81,26 +81,6 @@ class ModularArithmetics(object):
             return None
 
     @staticmethod
-    def primitives_for_loop(p):
-        """
-        This method gets the primitives for a certain modulus
-
-        :param p: modular base
-        :return: primitives
-        """
-        #TODO: Przepisać w wersje na kolokwium tj. poszukać po liczbach względnie pierwszych do p - 1
-        primitives = []
-        for i in range(1, p):
-            for j in range(1, p):
-                val = pow(i, j) % p
-                if val == 1:
-                    if j != p - 1:
-                        break
-                    else:
-                        primitives.append(i)
-        return primitives
-
-    @staticmethod
     def coprime(x, y):
         """
         Check if two numbers are coprimes
@@ -144,6 +124,9 @@ class ModularArithmetics(object):
     def primitives2(p):
         """
         This method gets the primitives for a certain modulus
+        !!!
+        NOTE: Deprecated because inefficient compared to the first one
+        !!!
 
         :param p: modular base
         :return: primitives
