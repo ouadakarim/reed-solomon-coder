@@ -1,0 +1,8 @@
+W sprawozdaniu ciekawe rzeczy
+* Zaplanować najpierw testy
+   tabelka - 3 kolumny (rodzaj błedu, czego się spodziewać dla dekoder uproszczony, to samode dkoder dedykowany)
+   kilkanaście wierszy ok 15., jedna lub dwie takie pozycje gdzie krotność błędu będzie dużo większa od zdolności korekcyjnej.
+   np. rodzaj błędu  = krotność, pozycja, liczba testów
+
+
+znać nierówność E (i=0 do t) (n po i) <= 2^ (n-k)

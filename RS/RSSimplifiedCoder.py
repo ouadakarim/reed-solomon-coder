@@ -1,10 +1,14 @@
 from GF.GaloisFieldArithmetics import GaloisFieldArithmetics
 
-class RSCoder(object):
+
+# TODO:
+# Kilknanaście testów
+
+class RSSimplifiedCoder(object):
     def __init__(self, prim=0x11d):
         self.GF = GaloisFieldArithmetics(prim)
 
-    def generate_generator_polynomial(self, nsym):
+    def rs_generator_poly(self, nsym):
         """
         Generate an irreducible generator polynomial (necessary to encode a
         message into Reed-Solomon)
@@ -14,20 +18,20 @@ class RSCoder(object):
             g = self.GF.polynomial_multiply(g, [1, self.GF.power(2, i)])
         return g
 
-    def encode_message(self, msg_in, nsym):
+    def rs_encode_msg(self, msg_in, nsym):
         """
         Reed-Solomon main encoding function
         """
-        gen = self.generate_generator_polynomial(nsym)
+        gen = self.rs_generator_poly(nsym)
         _, remainder = self.GF.polynomial_divide(msg_in + [0] * (len(gen) - 1), gen)
         msg_out = msg_in + remainder
         return msg_out
 
-    def calculate_syndromes(self, msg, nsym):
+    def rs_calc_syndromes(self, msg, nsym):
         """
         Given the received codeword msg and the number of error correcting
         symbols (nsym), computes the syndromes polynomial. Mathematically,
-        it's essentially equivalent to a Fourier Transform
+        it's essentially equivalent to a Fourrier Transform
         (Chien search being the inverse).
         """
         synd = [0] * nsym
@@ -35,15 +39,15 @@ class RSCoder(object):
             synd[i] = self.GF.polynomial_evaluate(msg, self.GF.power(2, i))
         return [0] + synd
 
-    def check_message(self, msg, nsym):
+    def rs_check(self, msg, nsym):
         """
         Returns true if the message + ecc has no error of false otherwise
         (may not always catch a wrong decoding or a wrong message, particularly
         if there are too many errors -- above the Singleton bound --, but it usually does)
         """
-        return max(self.calculate_syndromes(msg, nsym)) == 0
+        return max(self.rs_calc_syndromes(msg, nsym)) == 0
 
-    def find_errata_locator(self, e_pos):
+    def rs_find_errata_locator(self, e_pos):
         """
         Compute the erasures/errors/errata locator polynomial from the
         erasures/errors/errata positions (the positions must be relative to
@@ -61,7 +65,7 @@ class RSCoder(object):
                 self.GF.power(2, i), 0]))
         return e_loc
 
-    def find_error_evaluator(self, synd, err_loc, nsym):
+    def rs_find_error_evaluator(self, synd, err_loc, nsym):
         """
         Compute the error (or erasures if you supply sigma=erasures locator
         polynomial, or errata) evaluator polynomial Omega from the syndrome
@@ -71,15 +75,15 @@ class RSCoder(object):
                                                  ([1] + [0] * (nsym + 1)))
         return remainder
 
-    def correct_errata(self, msg_in, synd, err_pos):
+    def rs_correct_errata(self, msg_in, synd, err_pos):
         """
         Forney algorithm, computes the values (error magnitude) to correct the
         input message.
         """
         coef_pos = [len(msg_in) - 1 - p for p in err_pos]
-        err_loc = self.find_errata_locator(coef_pos)
-        err_eval = self.find_error_evaluator(synd[::-1], err_loc,
-                                             len(err_loc) - 1)[::-1]
+        err_loc = self.rs_find_errata_locator(coef_pos)
+        err_eval = self.rs_find_error_evaluator(synd[::-1], err_loc,
+                                                len(err_loc) - 1)[::-1]
 
         X = []  # will store the position of the errors
         for i in range(0, len(coef_pos)):
@@ -110,7 +114,7 @@ class RSCoder(object):
         msg_in = self.GF.polynomial_add(msg_in, E)
         return msg_in
 
-    def find_error_locator(self, synd, nsym, erase_loc=None, erase_count=0):
+    def rs_find_error_locator(self, synd, nsym, erase_loc=None, erase_count=0):
         """
         Find error/errata locator and evaluator polynomials with Berlekamp-Massey algorithm
         """
@@ -156,7 +160,7 @@ class RSCoder(object):
 
         return err_loc
 
-    def find_errors(self, err_loc, nmess):  # nmess is len(msg_in)
+    def rs_find_errors(self, err_loc, nmess):  # nmess is len(msg_in)
         """
         Find the roots (ie, where evaluation = zero) of error polynomial
         by brute-force trial, this is a sort of Chien's search (but less
@@ -174,7 +178,7 @@ class RSCoder(object):
                                     Search for the errata locator polynomial!")
         return err_pos
 
-    def forney_syndromes(self, synd, pos, nmess):
+    def rs_forney_syndromes(self, synd, pos, nmess):
         erase_pos_reversed = [nmess - 1 - p for p in pos]
         fsynd = list(synd[1:])
         for i in range(0, len(pos)):
@@ -183,7 +187,7 @@ class RSCoder(object):
                 fsynd[j] = self.GF.multiply(fsynd[j], x) ^ fsynd[j + 1]
         return fsynd
 
-    def correct_msg(self, msg_in, nsym, erase_pos=None):
+    def rs_correct_msg(self, msg_in, nsym, erase_pos=None):
         """
         Reed-Solomon main decoding function
         """
@@ -196,23 +200,23 @@ class RSCoder(object):
             erase_pos = []
         else:
             for e_pos in erase_pos:
-                msg_out[e_pos] = 0
+                [e_pos] = 0
         if len(erase_pos) > nsym: raise ReedSolomonError(
             "Too many erasures to correct")
-        synd = self.calculate_syndromes(msg_out, nsym)
+        synd = self.rs_calc_syndromes(msg_out, nsym)
         if max(synd) == 0:
             return msg_out[:-nsym], msg_out[-nsym:]  # no errors
 
-        fsynd = self.forney_syndromes(synd, erase_pos, len(msg_out))
-        err_loc = self.find_error_locator(fsynd, nsym,
-                                          erase_count=len(erase_pos))
-        err_pos = self.find_errors(err_loc[::-1], len(msg_out))
+        fsynd = self.rs_forney_syndromes(synd, erase_pos, len(msg_out))
+        err_loc = self.rs_find_error_locator(fsynd, nsym,
+                                             erase_count=len(erase_pos))
+        err_pos = self.rs_find_errors(err_loc[::-1], len(msg_out))
         if err_pos is None:
             raise ReedSolomonError("Could not locate error")
 
-        msg_out = self.correct_errata(msg_out, synd, (
+        msg_out = self.rs_correct_errata(msg_out, synd, (
             erase_pos + err_pos))
-        synd = self.calculate_syndromes(msg_out, nsym)
+        synd = self.rs_calc_syndromes(msg_out, nsym)
         if max(synd) > 0:
             raise ReedSolomonError("Could not correct message")
         # return the successfully decoded message
