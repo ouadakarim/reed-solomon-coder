@@ -27,11 +27,9 @@ class ReedSolomonCoder(unittest.TestCase):
         mesecc[3] = 2
         mesecc[4] = 2
         mesecc[5] = 2
-        print("Corrupted: %s" % mesecc)
 
         corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k,
                                                           erase_pos=[0, 1, 2])
-        print("Repaired: %s" % (corrected_message + corrected_ecc))
         output_msg = ''.join([chr(x) for x in corrected_message])
         self.assertEqual(input_msg, output_msg)
 

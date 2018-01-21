@@ -1,6 +1,10 @@
 from GF.GaloisFieldArithmetics import GaloisFieldArithmetics
 
+
 class RSCoder(object):
+    """
+    Reed-Solomon Encoder/Decoder class
+    """
     def __init__(self, prim=0x11d):
         self.GF = GaloisFieldArithmetics(prim)
 
@@ -151,8 +155,8 @@ class RSCoder(object):
         while len(err_loc) and err_loc[0] == 0:
             del err_loc[0]
         errs = len(err_loc) - 1
-        if (errs - erase_count) * 2 + erase_count > nsym:
-            raise ReedSolomonError("Too many errors to correct")
+        # if (errs - erase_count) * 2 + erase_count > nsym:
+        #     raise ReedSolomonError("Too many errors to correct")
 
         return err_loc
 
@@ -168,10 +172,10 @@ class RSCoder(object):
         for i in range(nmess):
             if self.GF.polynomial_evaluate(err_loc, self.GF.power(2, i)) == 0:
                 err_pos.append(nmess - 1 - i)
-        if len(err_pos) != errs:
+        # if len(err_pos) != errs:
             # couldn't find error locations
-            raise ReedSolomonError("Too many (or few) errors found by Chien \
-                                    Search for the errata locator polynomial!")
+            # raise ReedSolomonError("Too many (or few) errors found by Chien \
+            #                         Search for the errata locator polynomial!")
         return err_pos
 
     def forney_syndromes(self, synd, pos, nmess):
@@ -197,8 +201,8 @@ class RSCoder(object):
         else:
             for e_pos in erase_pos:
                 msg_out[e_pos] = 0
-        if len(erase_pos) > nsym: raise ReedSolomonError(
-            "Too many erasures to correct")
+        # if len(erase_pos) > nsym: raise ReedSolomonError(
+        #     "Too many erasures to correct")
         synd = self.calculate_syndromes(msg_out, nsym)
         if max(synd) == 0:
             return msg_out[:-nsym], msg_out[-nsym:]  # no errors
@@ -207,14 +211,14 @@ class RSCoder(object):
         err_loc = self.find_error_locator(fsynd, nsym,
                                           erase_count=len(erase_pos))
         err_pos = self.find_errors(err_loc[::-1], len(msg_out))
-        if err_pos is None:
-            raise ReedSolomonError("Could not locate error")
+        # if err_pos is None:
+        #     raise ReedSolomonError("Could not locate error")
 
         msg_out = self.correct_errata(msg_out, synd, (
             erase_pos + err_pos))
         synd = self.calculate_syndromes(msg_out, nsym)
-        if max(synd) > 0:
-            raise ReedSolomonError("Could not correct message")
+        # if max(synd) > 0:
+        #     raise ReedSolomonError("Could not correct message")
         # return the successfully decoded message
         # also return the corrected ecc block so that the user can check()
         return msg_out[:-nsym], msg_out[-nsym:]
