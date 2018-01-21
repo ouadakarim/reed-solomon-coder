@@ -7,7 +7,7 @@ message = "hello world"
 
 rs = RSCoder(prim)
 
-mesecc = rs.encode_message([ord(x) for x in message], n - k)
+mesecc = rs.encode([ord(x) for x in message], n - k)
 print("Original: %s" % mesecc)
 
 # Tampering 6 characters of the message (over 9 ecc symbols, so we are above the Singleton Bound)
@@ -21,6 +21,6 @@ print("Corrupted: %s" % mesecc)
 
 # Decoding/repairing the corrupted message, by providing the locations of a few erasures, we get below the Singleton Bound
 # Remember that the Singleton Bound is: 2*e+v <= (n-k)
-corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k, erase_pos=[0, 1, 2])
+corrected_message, corrected_ecc = rs.decode(mesecc, n - k, erase_pos=[0, 1, 2])
 print("Repaired: %s" % (corrected_message+corrected_ecc))
 print(''.join([chr(x) for x in corrected_message]))

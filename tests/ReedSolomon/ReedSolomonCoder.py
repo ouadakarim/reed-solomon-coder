@@ -18,7 +18,7 @@ class ReedSolomonCoder(unittest.TestCase):
 
         rs = RSCoder(prim)
 
-        mesecc = rs.encode_message([ord(x) for x in input_msg], n - k)
+        mesecc = rs.encode([ord(x) for x in input_msg], n - k)
 
         # Tampering 6 characters of the message (over 9 ecc symbols, so we are above the Singleton Bound)
         mesecc[0] = 0
@@ -28,8 +28,8 @@ class ReedSolomonCoder(unittest.TestCase):
         mesecc[4] = 2
         mesecc[5] = 2
 
-        corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k,
-                                                          erase_pos=[0, 1, 2])
+        corrected_message, corrected_ecc = rs.decode(mesecc, n - k,
+                                                     erase_pos=[0, 1, 2])
         output_msg = ''.join([chr(x) for x in corrected_message])
         self.assertEqual(input_msg, output_msg)
 
@@ -41,7 +41,7 @@ class ReedSolomonCoder(unittest.TestCase):
 
         rs = RSCoder(prim)
 
-        mesecc = rs.encode_message([ord(x) for x in input_msg], n - k)
+        mesecc = rs.encode([ord(x) for x in input_msg], n - k)
         # Tampering 6 characters of the message
         mesecc[0] = 0
         mesecc[1] = 2
@@ -50,7 +50,7 @@ class ReedSolomonCoder(unittest.TestCase):
         # Decoding/repairing the corrupted message, by providing the locations
         # of a few erasures, we get below the Singleton Bound
         # Remember that the Singleton Bound is: 2*e+v <= (n-k)
-        corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k)
+        corrected_message, corrected_ecc = rs.decode(mesecc, n - k)
         output_msg = ''.join([chr(x) for x in corrected_message])
         self.assertEqual(input_msg, output_msg)
 
@@ -62,7 +62,7 @@ class ReedSolomonCoder(unittest.TestCase):
 
         rs = RSCoder(prim)
 
-        mesecc = rs.encode_message([ord(x) for x in input_msg], n - k)
+        mesecc = rs.encode([ord(x) for x in input_msg], n - k)
         # Tampering 6 characters of the message
         mesecc[0] = 0
         mesecc[1] = 2
@@ -71,7 +71,7 @@ class ReedSolomonCoder(unittest.TestCase):
         # Decoding/repairing the corrupted message, by providing the locations
         # of a few erasures, we get below the Singleton Bound
         # Remember that the Singleton Bound is: 2*e+v <= (n-k)
-        corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k)
+        corrected_message, corrected_ecc = rs.decode(mesecc, n - k)
         output_msg = ''.join([chr(x) for x in corrected_message])
         self.assertEqual(input_msg, output_msg)
 
@@ -83,9 +83,9 @@ class ReedSolomonCoder(unittest.TestCase):
 
         rs = RSCoder(prim)
 
-        mesecc = rs.encode_message([ord(x) for x in input_msg], n - k)
+        mesecc = rs.encode([ord(x) for x in input_msg], n - k)
 
-        corrected_message, corrected_ecc = rs.correct_msg(mesecc, n - k)
+        corrected_message, corrected_ecc = rs.decode(mesecc, n - k)
         output_msg = ''.join([chr(x) for x in corrected_message])
         self.assertEqual(input_msg, output_msg)
 

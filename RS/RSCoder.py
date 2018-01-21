@@ -18,7 +18,7 @@ class RSCoder(object):
             g = self.GF.polynomial_multiply(g, [1, self.GF.power(2, i)])
         return g
 
-    def encode_message(self, msg_in, nsym):
+    def encode(self, msg_in, nsym):
         """
         Reed-Solomon main encoding function
         """
@@ -187,7 +187,7 @@ class RSCoder(object):
                 fsynd[j] = self.GF.multiply(fsynd[j], x) ^ fsynd[j + 1]
         return fsynd
 
-    def correct_msg(self, msg_in, nsym, erase_pos=None):
+    def decode(self, msg_in, nsym, erase_pos=None):
         """
         Reed-Solomon main decoding function
         """

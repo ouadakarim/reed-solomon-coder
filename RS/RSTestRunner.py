@@ -1,7 +1,7 @@
 import random
 import time
 
-
+# TODO: Add mode for sequential tests
 class RSTestRunner(object):
     """
     RSTestRunner is a utility to check the performance of
@@ -34,11 +34,11 @@ class RSTestRunner(object):
         for i in range(sample_count):
             print("Checking sample nr: ", i + 1)
             msg = self.random_message()
-            msgecc = coder.encode_message(msg, self.n - self.k)
+            msgecc = coder.encode(msg, self.n - self.k)
             corrupted = self.corrupt_message(msgecc, err_count)
 
-            corrected_message, corrected_ecc = coder.correct_msg(corrupted,
-                                                                 self.n - self.k)
+            corrected_message, corrected_ecc = coder.decode(corrupted,
+                                                            self.n - self.k)
             intersection = [i for i, j in zip(msg, corrected_message) if i == j]
 
             if len(intersection) == len(msg):
