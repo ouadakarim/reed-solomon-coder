@@ -2,8 +2,9 @@ from GF.GaloisFieldArithmetics import GaloisFieldArithmetics
 
 
 class RSSimplifiedCoder(object):
-    def __init__(self, prim=0x11d):
+    def __init__(self, nsym, prim=0x11d):
         self.GF = GaloisFieldArithmetics(prim)
+        self.g = self.generate_generator_polynomial(nsym)
 
     def generate_generator_polynomial(self, nsym):
         """
@@ -19,7 +20,7 @@ class RSSimplifiedCoder(object):
         """
         Reed-Solomon main encoding function
         """
-        gen = self.generate_generator_polynomial(nsym)
+        gen = self.g #self.generate_generator_polynomial(nsym)
         _, remainder = self.GF.polynomial_divide(msg_in + [0] * (len(gen) - 1), gen)
         msg_out = msg_in + remainder
         return msg_out
@@ -32,7 +33,7 @@ class RSSimplifiedCoder(object):
         for n=255 and k = 243
         x12+68x11+119x10+67x9+118x8+220x7+31x6+7x5+84x4+92x3+127x2+213x+97
         """
-        g = self.generate_generator_polynomial(nsym)
+        g = self.g #generate_generator_polynomial(nsym)
         _, remainder = self.GF.polynomial_divide(msg, g)
         return remainder
 
