@@ -7,23 +7,22 @@ prim = 0x11d
 n = 255
 k = 243
 
-error_counts = [1, 2, 3, 4, 5, 8, 10, 12, 15, 20]
+error_counts = [220]  # [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 100]
 
 rs = RSCoder(prim)
-rs2 = RSSimplifiedCoder(n-k, prim)
-coders = [rs]
+rs2 = RSSimplifiedCoder(n - k, prim)
+coders = [rs2]
 
 test_runner = RSTestRunner(n, k)
 
-
 for err_count in error_counts:
     for coder in coders:
-
         with open('results.txt', 'a') as f:
+            samples = 100 if err_count < 10 else 500
 
-            samples = 1000 if err_count < 10 else 5000
-
-            success, fail, duration = test_runner.test(coder, err_count, samples)
+            success, fail, duration = test_runner.test(coder, err_count,
+                                                       samples,
+                                                       group_errors=True)
 
             f.write("\n\n--- Results:---")
             f.write("\nCoder: ")
@@ -31,6 +30,6 @@ for err_count in error_counts:
             f.write("\nInjected errors: " + str(err_count))
             f.write("\nSuccess count: " + str(success))
             f.write("\nFailure count: " + str(fail))
-            f.write("\nPercentage: " + str((success/(success+fail))*100) + "%")
+            f.write("\nPercentage: " + str(
+                (success / (success + fail)) * 100) + "%")
             f.write("\nDuration: " + str(duration))
-
