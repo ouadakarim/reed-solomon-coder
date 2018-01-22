@@ -21,7 +21,7 @@ class ReedSolomonCoder(unittest.TestCase):
                     "oworldhelloworldhelloworldhelloworldhelloworldhelloworldhe" \
                     "lloworld123"
 
-        rs = RSSimplifiedCoder(prim)
+        rs = RSSimplifiedCoder(n - k, prim)
 
         input_num = [ord(x) for x in input_msg]
         mesecc = rs.encode(input_num, n - k)
@@ -41,7 +41,7 @@ class ReedSolomonCoder(unittest.TestCase):
                     "oworldhelloworldhelloworldhelloworldhelloworldhelloworldhe" \
                     "lloworld123"
 
-        rs = RSSimplifiedCoder(prim)
+        rs = RSSimplifiedCoder(n - k, prim)
 
         input_num = [ord(x) for x in input_msg]
         mesecc = rs.encode(input_num, n - k)
@@ -65,7 +65,7 @@ class ReedSolomonCoder(unittest.TestCase):
                     "oworldhelloworldhelloworldhelloworldhelloworldhelloworldhe" \
                     "lloworld123"
 
-        rs = RSSimplifiedCoder(prim)
+        rs = RSSimplifiedCoder(n - k, prim)
 
         input_num = [ord(x) for x in input_msg]
         mesecc = rs.encode(input_num, n - k)

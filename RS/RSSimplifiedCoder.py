@@ -45,7 +45,7 @@ class RSSimplifiedCoder(object):
             synd = self.calculate_simple(msg_in, nsym)
 
             weight = sum([1 if s != 0 else 0 for s in synd])
-            if weight <= (nsym+1)/2:
+            if weight <= nsym/2:
                 corrected_message = self.GF.polynomial_add(msg_in, synd)
                 msg_out = self.cyclic_move_right(corrected_message, -i)
                 return msg_out[:-nsym], msg_out[-nsym:]
