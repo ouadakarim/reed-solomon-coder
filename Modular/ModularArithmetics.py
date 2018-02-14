@@ -67,7 +67,7 @@ class ModularArithmetics(object):
     @staticmethod
     def modular_inverse(x, p):
         """
-        This method calculates the greatest common divisor of two numbers
+        This method calculates the modular inverse
 
         :param x: first number
         :param p: modular base

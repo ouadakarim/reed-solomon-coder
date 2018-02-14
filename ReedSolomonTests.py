@@ -7,11 +7,11 @@ prim = 0x11d
 n = 255
 k = 243
 
-error_counts = [3]  # [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 100]
+error_counts = [3]
 
 rs = RSCoder(prim)
 rs2 = RSSimplifiedCoder(n - k, prim)
-coders = [rs2]
+coders = [rs]
 
 test_runner = RSTestRunner(n, k)
 

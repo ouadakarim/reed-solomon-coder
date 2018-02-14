@@ -1,4 +1,4 @@
-from utils.ModularArithmetics import ModularArithmetics
+from Modular.ModularArithmetics import ModularArithmetics
 
 
 class Modular:

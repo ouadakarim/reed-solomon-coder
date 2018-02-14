@@ -1,7 +1,7 @@
 import os
 
-from utils.Modular import Modular
-from utils.ModularArithmetics import ModularArithmetics
+from Modular.Modular import Modular
+from Modular.ModularArithmetics import ModularArithmetics
 
 
 def display_title_bar():

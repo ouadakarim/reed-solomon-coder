@@ -1,5 +1,5 @@
 import unittest
-from utils.Modular import Modular
+from Modular.Modular import Modular
 # For console to work
 import sys
 import os.path

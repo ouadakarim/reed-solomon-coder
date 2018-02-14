@@ -1,0 +1,81 @@
+
+
+--- Results:---
+Coder: Simplified
+Injected errors: 9
+Success count: 3
+Failure count: 97
+Percentage: 3.0%
+Duration: 0.7245156764984131
+
+--- Results:---
+Coder: Simplified
+Injected errors: 9
+Success count: 4
+Failure count: 96
+Percentage: 4.0%
+Duration: 0.7045161724090576
+
+--- Results:---
+Coder: Simplified
+Injected errors: 8
+Success count: 1
+Failure count: 99
+Percentage: 1.0%
+Duration: 0.7856607437133789
+
+--- Results:---
+Coder: Simplified
+Injected errors: 8
+Success count: 2
+Failure count: 98
+Percentage: 2.0%
+Duration: 1.0133552551269531
+
+--- Results:---
+Coder: Simplified
+Injected errors: 3
+Success count: 2
+Failure count: 98
+Percentage: 2.0%
+Duration: 0.7907819747924805
+
+--- Results:---
+Coder: Simplified
+Injected errors: 3
+Success count: 100
+Failure count: 0
+Percentage: 100.0%
+Duration: 38.90158224105835
+
+--- Results:---
+Coder: Normal
+Injected errors: 3
+Success count: 100
+Failure count: 0
+Percentage: 100.0%
+Duration: 123.4871597290039
+
+--- Results:---
+Coder: Normal
+Injected errors: 3
+Success count: 100
+Failure count: 0
+Percentage: 100.0%
+Duration: 28.62345814704895
+
+--- Results:---
+Coder: Normal
+Injected errors: 3
+Success count: 100
+Failure count: 0
+Percentage: 100.0%
+Duration: 21.476160049438477
+
+--- Results:---
+Coder: Normal
+Injected errors: 3
+Success count: 100
+Failure count: 0
+Percentage: 100.0%
+Duration: 146.39356398582458

@@ -1,5 +1,5 @@
 import unittest
-from utils.ModularArithmetics import ModularArithmetics
+from Modular.ModularArithmetics import ModularArithmetics
 # For console to work
 import sys
 import os.path

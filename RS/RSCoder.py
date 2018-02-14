@@ -91,8 +91,7 @@ class RSCoder(object):
             X.append(self.GF.power(2, -l))
 
         # Forney algorithm: compute the magnitudes
-        E = [0] * (
-            len(msg_in))  # will store the values that need to be corrected
+        E = [0] * (len(msg_in))  # will store the values that need to be corrected
         Xlength = len(X)
         for i, Xi in enumerate(X):
             Xi_inv = self.GF.inverse(Xi)
@@ -216,7 +215,7 @@ class RSCoder(object):
 
         msg_out = self.correct_errata(msg_out, synd, (
             erase_pos + err_pos))
-        synd = self.calculate_syndromes(msg_out, nsym)
+        # synd = self.calculate_syndromes(msg_out, nsym)
         # if max(synd) > 0:
         #     raise ReedSolomonError("Could not correct message")
         # return the successfully decoded message
