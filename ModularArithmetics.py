@@ -5,7 +5,7 @@ from Modular.ModularArithmetics import ModularArithmetics
 
 
 def display_title_bar():
-    os.system('cls')
+    os.system('clear')
     print("\n\t***  Modular Arithmetics ***")
     print("\n")
     print("\t[1] Add modular numbers.")
